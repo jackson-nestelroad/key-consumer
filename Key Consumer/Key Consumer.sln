@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Key Consumer", "Key Consumer.vcxproj", "{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Keyboard Hook", "..\Keyboard Hook\Keyboard Hook.vcxproj", "{17F5F595-954C-4841-BB62-7E22428C30B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Debug|x64.ActiveCfg = Debug|x64
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Debug|x64.Build.0 = Debug|x64
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Debug|x86.ActiveCfg = Debug|x64
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Debug|x86.Build.0 = Debug|x64
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Release|x64.ActiveCfg = Release|x64
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Release|x64.Build.0 = Release|x64
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Release|x86.ActiveCfg = Release|Win32
+		{0C3714A8-5EDC-49E9-A25E-B5454D0174CC}.Release|x86.Build.0 = Release|Win32
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Debug|x64.ActiveCfg = Debug|x64
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Debug|x64.Build.0 = Debug|x64
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Debug|x86.ActiveCfg = Debug|x64
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Debug|x86.Build.0 = Debug|x64
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Release|x64.ActiveCfg = Release|x64
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Release|x64.Build.0 = Release|x64
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Release|x86.ActiveCfg = Release|Win32
+		{17F5F595-954C-4841-BB62-7E22428C30B1}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30B3D564-59CE-4693-BF0A-B2B085BC67C8}
+	EndGlobalSection
+EndGlobal
