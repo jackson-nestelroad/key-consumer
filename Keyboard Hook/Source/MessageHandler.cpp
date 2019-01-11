@@ -2,13 +2,14 @@
 #include "../Header/MessageHandler.h"
 #include "../Header/KeyboardHook.h"
 BOOL MessageHandler::ctrlKey;
-BOOL MessageHandler::interceptKeys;
+DWORD MessageHandler::interceptKeys;
 
 // Constructor
 MessageHandler::MessageHandler()
 {
    ctrlKey = FALSE;
-   interceptKeys = TRUE;
+   interceptKeys = KB_INTERCEPT;
+   srand((unsigned int)time(NULL));
 }
 
 // Infinite loop to run the loop
@@ -29,69 +30,88 @@ void MessageHandler::handle()
 }
 
 // Choose what to do with key events
-WORD MessageHandler::handleKey(DWORD key)
+HMESSAGE MessageHandler::handleKey(DWORD key)
 {
    // CTRL command is being sent
    if (ctrlKey)
       return MessageHandler::ctrlCommand(key);
 
    // keyAction() tells us how the key impacts the internal code
-   WORD action = MessageHandler::keyAction(key);
+   HMESSAGE action = MessageHandler::keyAction(key);
 
    // We are intercepting keys
-   if (interceptKeys)
+   if (interceptKeys != KB_NONE)
    {
       // keyAction() tells us what to do
-      if(action != NA_KEY)
+      if(action.wCode != NA_KEY)
          return action;
 
-      // Intercept the key in a default manner
-      return MessageHandler::interceptKey(key);
+      // Intercept the key in a depending on the defined method
+      switch (interceptKeys)
+      {
+         case KB_INTERCEPT: return MessageHandler::interceptKey(key); break;
+         case KB_CHANGE: return MessageHandler::changeKey(key); break;
+      }
    }
       
    // Send the key as normal
-   return PASS_KEY;
+   return HMESSAGE{ PASS_KEY, key };
 }
 
 // Function to decide what to do with individual key events
-WORD MessageHandler::keyAction(DWORD key)
+HMESSAGE MessageHandler::keyAction(DWORD key)
 {
    switch (key)
    {
       // CTRL (Starts a command)
-      case 162: ctrlKey = TRUE; return EAT_KEY;
+      case 162: ctrlKey = TRUE; return HMESSAGE{ EAT_KEY, key }; break;
 
       // Any other key
-      default: return NA_KEY; break;
+      default: return HMESSAGE{ NA_KEY, key }; break;
    }
 }
+
+// Function to change the key sent
+HMESSAGE MessageHandler::changeKey(DWORD key)
+{
+   if (key >= 65 && key <= 90) 
+   {
+      DWORD newKey = (((key - 64) % 26) + 65);
+      return HMESSAGE{ CHANGE_KEY, newKey };
+   }
+
+   return HMESSAGE{ PASS_KEY, key };
+}
+
 // Function to intercept the key however we want
-WORD MessageHandler::interceptKey(DWORD key)
+HMESSAGE MessageHandler::interceptKey(DWORD key)
 {
    // Sleep(100);
-   srand((unsigned int) time(NULL));
    if ((rand() % 2) != 0)
-      return EAT_KEY;
+      return HMESSAGE{ EAT_KEY, key };
 
-   return PASS_KEY;
+   return HMESSAGE{ PASS_KEY, key };
 }
 
 // Commands prompted by the CTRL key being pressed
-WORD MessageHandler::ctrlCommand(DWORD key)
+HMESSAGE MessageHandler::ctrlCommand(DWORD key)
 {
    ctrlKey = FALSE;
    switch (key)
    {
       // ~ (Kills the hook and stops the program)
-      case 192: return KILL_KEY; break;
+      case 192: return HMESSAGE{ KILL_KEY, key }; break;
 
       // - (Stops intercepting keys)
-      case 189: interceptKeys = FALSE; return EAT_KEY; break;
+      case 189: interceptKeys = KB_NONE; return HMESSAGE{ EAT_KEY, key }; break;
 
       // + (Starts intercepting keys)
-      case 187: interceptKeys = TRUE; return EAT_KEY;  break;
+      case 187: interceptKeys = KB_INTERCEPT; return HMESSAGE{ EAT_KEY, key };  break;
+
+      // 0 (Starts changing keys)
+      case 48: interceptKeys = KB_CHANGE; return HMESSAGE{ EAT_KEY, key }; break;
 
       // Any other key
-      default: return PASS_KEY; break;
+      default: return HMESSAGE{ PASS_KEY, key }; break;
    }
 }
