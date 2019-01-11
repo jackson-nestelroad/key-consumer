@@ -183,6 +183,7 @@ void Help()
    cout << "KeyConsumer Commands" << endl;
    cout << endl;
    cout << "    Ctrl + \"~\"    DESTROYs keyboard hook permanently." << endl;
-   cout << "    Ctrl + \"-\"    Turns key interception OFF." << endl;
+   cout << "    Ctrl + \"-\"    Turns all key interception OFF." << endl;
    cout << "    Ctrl + \"+\"    Turns key interception ON." << endl;
+   cout << "    Ctrl + \"0\"    Turns key changing ON." << endl;
 }
